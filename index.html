@@ -1,216 +1,628 @@
-from pathlib import Path
-p=Path("/mnt/data/index.html")
-html=r'''<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Interactive Year 11 Maths Methods practice for exponential and logarithmic functions, with graph paper and working space.">
-<title>Exponentials & Logarithms | Maths Methods Lab</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Timer</title>
+
 <style>
-:root{--ink:#172033;--muted:#667085;--line:#dce3ed;--paper:#fff;--bg:#f3f6fb;--blue:#3157c8;--blue2:#eaf0ff;--green:#18794e;--red:#b42318;--gold:#9a6700;--shadow:0 10px 28px #18294b0d}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-header{background:linear-gradient(125deg,#172554,#3157c8);color:white;padding:28px max(20px,calc((100% - 1200px)/2)) 24px}
-header .eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;opacity:.8;font-weight:700}h1{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.1;margin:8px 0}header p{max-width:760px;color:#e4eaff;margin:10px 0 0}
-.wrap{max-width:1200px;margin:22px auto;padding:0 18px 60px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:18px}
-.panel,.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
-.sidebar{padding:15px;height:max-content;position:sticky;top:12px}.side-title{font-size:.78rem;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin:4px 8px 10px}
-.topic{width:100%;border:0;background:transparent;text-align:left;padding:10px 11px;border-radius:10px;color:var(--ink);font:inherit;cursor:pointer;margin:2px 0}.topic:hover{background:#f3f6fc}.topic.active{background:var(--blue2);color:var(--blue);font-weight:750}
-.progress{height:7px;background:#e8edf5;border-radius:20px;overflow:hidden;margin:10px 8px}.progress span{display:block;height:100%;width:0;background:var(--blue);transition:width .2s}.small{font-size:.84rem;color:var(--muted)}
-main{min-width:0}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}.pill{display:inline-flex;border-radius:99px;background:#e9edf5;color:#45516a;padding:5px 10px;font-size:.78rem;font-weight:750}
-.card{padding:20px;margin-bottom:16px}.card h2{margin:0 0 6px;font-size:1.2rem}.card h3{margin:0 0 8px;font-size:1rem}.muted{color:var(--muted)}.question{font-size:1.08rem;font-weight:650;margin:14px 0}
-button,.btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 13px;border-radius:10px;font:inherit;font-weight:650;cursor:pointer}button:hover{border-color:#9daed4}button.primary{background:var(--blue);border-color:var(--blue);color:white}button:disabled{opacity:.45;cursor:not-allowed}.btnrow{display:flex;gap:8px;flex-wrap:wrap}
-input,textarea,select{font:inherit;border:1px solid #cbd5e1;border-radius:10px;padding:10px 11px;width:100%;background:white;color:var(--ink)}input:focus,textarea:focus,select:focus{outline:3px solid #3157c82b;border-color:var(--blue)}
-.answerrow{display:flex;gap:8px;margin:12px 0}.answerrow input{flex:1;min-width:0}.feedback{padding:10px 12px;border-radius:10px;margin-top:10px;display:none}.feedback.show{display:block}.feedback.good{background:#e8f7ef;color:#17633e}.feedback.bad{background:#fff0ef;color:#982a22}.feedback.info{background:#eef3ff;color:#2348a8}
-.twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}.workspace{min-height:190px;resize:vertical;line-height:1.65;background-image:linear-gradient(#e8edf5 1px,transparent 1px);background-size:100% 29px}
-#graph{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:white;touch-action:manipulation}
-.graph-controls{display:grid;grid-template-columns:repeat(4,minmax(80px,1fr));gap:8px;margin:10px 0}.graph-controls label,.fieldlabel{font-size:.8rem;color:var(--muted);font-weight:700;display:block;margin-bottom:4px}
-details{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}summary{cursor:pointer;font-weight:750}code{background:#f0f3f8;padding:2px 5px;border-radius:5px}
-.api-warning{background:#fff7df;border:1px solid #f0d58b;border-radius:12px;padding:12px;color:#6e4b00;font-size:.88rem;margin-bottom:12px}
-#aiOutput{white-space:pre-wrap;min-height:40px;margin-top:10px}
-footer{max-width:1200px;margin:0 auto;padding:0 18px 28px;color:var(--muted);font-size:.8rem}
-@media(max-width:800px){.wrap{grid-template-columns:1fr}.sidebar{position:static}.topiclist{display:grid;grid-template-columns:1fr 1fr;gap:2px}.twocol{grid-template-columns:1fr}.graph-controls{grid-template-columns:1fr 1fr}}
-@media(max-width:480px){.topiclist{grid-template-columns:1fr}.answerrow{flex-direction:column}}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+#topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+  font-size: 14px;
+}
+
+h1 {
+  margin: 20px 0 10px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.timer-label {
+  font-size: 1.2rem;
+  color: #888;
+  margin-bottom: -5px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.timer {
+  font-size: 140px;
+  font-weight: 700;
+  margin: 0;
+  font-family: monospace;
+}
+
+.finish-time {
+  font-size: 1.3rem;
+  color: #aaa;
+  margin-top: -10px;
+  letter-spacing: 1px;
+}
+
+.finish-time strong {
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 20px 0;
+}
+
+.box {
+  border: 1px solid #333;
+  padding: 20px;
+  width: 220px;
+  border-radius: 12px;
+  background: #161616;
+  transition: all 0.5s ease;
+}
+
+.box.active-phase {
+  background: #e0e0e0;
+  color: #000;
+  border-color: #fff;
+  box-shadow: 0 0 25px rgba(255,255,255,0.1);
+}
+
+.reading-title {
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  border-bottom: 3px solid #2ecc71;
+  padding-bottom: 2px;
+}
+
+.writing-title {
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 2px;
+}
+
+#barContainer {
+  width: 85%;
+  height: 40px;
+  margin: 25px auto;
+  background: #333;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #444;
+}
+
+#writingBar {
+  position: absolute;
+  height: 100%;
+  background: #3498db;
+  width: 100%;
+  left: 0;
+  z-index: 1;
+}
+
+#readingBar {
+  position: absolute;
+  height: 100%;
+  background: #2ecc71;
+  width: 100%;
+  right: 0;
+  z-index: 2;
+}
+
+button {
+  margin: 5px;
+  padding: 12px 25px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.play {
+  background: #2ecc71;
+  color: #000;
+}
+
+.pause {
+  background: #f1c40f;
+  color: #000;
+}
+
+.stop {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.alarm-btn {
+  background: #ff4757;
+  color: #fff;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+input {
+  background: #222;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 10px;
+  width: 60px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.flash {
+  animation: flashBg 0.4s alternate infinite;
+}
+
+@keyframes flashBg {
+  from { background: #111; }
+  to { background: #700; }
+}
+
+#awakeStatus {
+  color: #2ecc71;
+  font-size: 12px;
+  margin-top: 12px;
+  letter-spacing: 1px;
+}
 </style>
 </head>
+
 <body>
-<header>
-  <div class="eyebrow">Year 11 Maths Methods · Interactive revision</div>
-  <h1>Exponentials &amp; Logarithms Lab</h1>
-  <p>Practise the laws, solve equations, sketch exponential and logarithmic functions on a Cartesian plane, and show your working in the digital workbook.</p>
-</header>
-<div class="wrap">
-  <aside class="panel sidebar">
-    <div class="side-title">Choose a topic</div>
-    <nav class="topiclist" id="topics">
-      <button class="topic active" data-topic="indices">1 · Index laws</button>
-      <button class="topic" data-topic="exponential">2 · Exponential graphs</button>
-      <button class="topic" data-topic="exp-eq">3 · Exponential equations</button>
-      <button class="topic" data-topic="logs">4 · Log laws</button>
-      <button class="topic" data-topic="log-graphs">5 · Log graphs</button>
-      <button class="topic" data-topic="applications">6 · Applications</button>
-      <button class="topic" data-topic="mixed">7 · Mixed revision</button>
-    </nav>
-    <div class="side-title" style="margin-top:18px">Session progress</div>
-    <div class="progress"><span id="progressBar"></span></div>
-    <div class="small" id="progressText">0 answered · 0 correct</div>
-    <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
-    <button id="resetProgress" style="width:100%">Reset session</button>
-    <p class="small">Your working and session score stay in this browser tab. They are not sent anywhere.</p>
-  </aside>
-  <main>
-    <div class="toolbar">
-      <span class="pill" id="topicPill">INDEX LAWS</span>
-      <div class="btnrow">
-        <button id="newQuestion">New question ↻</button>
-        <button id="showHint">Show hint</button>
-      </div>
-    </div>
-    <section class="card">
-      <h2 id="questionTitle">Practice question</h2>
-      <div class="small" id="questionMeta">Short answer · show all working</div>
-      <div class="question" id="questionText">Simplify x⁵ × x³.</div>
-      <div id="hint" class="feedback info"></div>
-      <div class="answerrow">
-        <input id="answer" autocomplete="off" placeholder="Type your answer here…" aria-label="Your answer">
-        <button class="primary" id="checkAnswer">Check answer</button>
-      </div>
-      <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
-      <details id="solutionDetails"><summary>Reveal solution / explanation</summary><div id="solution" style="margin-top:8px"></div></details>
-    </section>
-    <section class="card">
-      <h2>Working space</h2>
-      <p class="muted">Write algebra steps, substitutions, restrictions and reasoning. Use this before checking your answer.</p>
-      <textarea id="working" class="workspace" placeholder="Step 1: Write the relevant law…&#10;Step 2: Substitute…&#10;Step 3: Simplify and check…"></textarea>
-      <div class="btnrow" style="margin-top:9px"><button id="clearWorking">Clear working</button><button id="copyWorking">Copy working</button><span class="small" id="workStatus" style="align-self:center"></span></div>
-    </section>
-    <section class="card">
-      <h2>Cartesian plane / graph sketcher</h2>
-      <p class="muted">Choose a common function to plot. The grid is interactive for viewing; sketch your own curve on paper or describe key points in the working area.</p>
-      <div class="graph-controls">
-        <div><label for="functionSelect">Function</label><select id="functionSelect">
-          <option value="2^x">y = 2ˣ</option><option value="0.5^x">y = (1/2)ˣ</option>
-          <option value="2^x-2">y = 2ˣ − 2</option><option value="2^(x-1)+1">y = 2⁽ˣ⁻¹⁾ + 1</option>
-          <option value="log2">y = log₂(x)</option><option value="log2shift">y = log₂(x − 1) − 1</option>
-          <option value="ln">y = ln(x)</option><option value="2-expneg">y = 2 − e⁻ˣ</option>
-        </select></div>
-        <div><label for="xmin">x minimum</label><input id="xmin" type="number" value="-5" min="-20" max="20"></div>
-        <div><label for="xmax">x maximum</label><input id="xmax" type="number" value="5" min="-20" max="20"></div>
-        <div><label for="ymax">y range ±</label><input id="ymax" type="number" value="8" min="2" max="30"></div>
-      </div>
-      <canvas id="graph" width="900" height="510" aria-label="Cartesian graph of selected function"></canvas>
-      <div class="small" id="graphNotes" style="margin-top:8px"></div>
-      <div class="btnrow" style="margin-top:10px"><button id="plotGraph" class="primary">Plot graph</button><button id="downloadGraph">Download graph PNG</button></div>
-      <details><summary>Graph checklist</summary>
-        <ul><li>Label the x- and y-axes and use a consistent scale.</li><li>Plot intercepts and at least three other valid points.</li><li>Draw a smooth curve through the points; do not join exponential/logarithmic points with straight segments.</li><li>Draw and label any horizontal or vertical asymptote.</li><li>State domain and range using correct notation.</li></ul>
-      </details>
-    </section>
-    <section class="card">
-      <h2>Optional AI tutor (OpenRouter)</h2>
-      <div class="api-warning"><strong>Security:</strong> putting an API key into a public GitHub Pages website is not secure. Anyone can inspect browser code or network requests and use your key. This demo keeps the key only in the current page memory (it is not saved to local storage), but it is still visible to the browser and sent to OpenRouter. Use it only for private/local testing with a restricted, low-limit key. For a public site, use a small server-side proxy and keep the key in a server secret.</div>
-      <label class="fieldlabel" for="apiKey">OpenRouter API key</label>
-      <input id="apiKey" type="password" placeholder="sk-or-v1-… (not saved)" autocomplete="off">
-      <div class="twocol" style="margin-top:10px">
-        <div><label class="fieldlabel" for="model">Model ID</label><input id="model" value="openrouter/free" placeholder="provider/model"></div>
-        <div><label class="fieldlabel" for="aiMode">Tutor style</label><select id="aiMode"><option value="hint">Give me a hint only</option><option value="explain">Explain the method step by step</option><option value="check">Check my working and find the first error</option><option value="practice">Generate a similar practice question</option></select></div>
-      </div>
-      <div class="btnrow" style="margin-top:10px"><button id="askAI" class="primary">Ask AI tutor</button><button id="clearAI">Clear response</button></div>
-      <div id="aiOutput" aria-live="polite" class="muted">The AI tutor is optional. The worksheet, graph plotter and answer checking work without a key.</div>
-      <p class="small">Requests are sent to <code>https://openrouter.ai/api/v1/chat/completions</code>. Do not enter a key you cannot afford to expose. Review your provider's current pricing and usage limits.</p>
-    </section>
-  </main>
+
+<div id="topbar">
+  <div>Eddie Singh</div>
+  <div id="clockDisplay"></div>
 </div>
-<footer>Independent study tool · Check exact answers and domain restrictions carefully. For log equations, always verify that every logarithm argument is positive.</footer>
+
+<h1>Exam Timer</h1>
+
+<div class="container">
+
+  <div id="readBox" class="box">
+    <span class="reading-title">READING TIME</span>
+    <div id="readDisplay" style="font-size:1.8rem;font-weight:600;">00:00</div>
+  </div>
+
+  <div id="writeBox" class="box">
+    <span class="writing-title">WRITING TIME</span>
+    <div id="writeDisplay" style="font-size:1.8rem;font-weight:600;">00:00</div>
+  </div>
+
+</div>
+
+<div id="phaseLabel" class="timer-label">Ready</div>
+
+<div class="timer" id="mainTimer">00:00</div>
+
+<div id="finishDisplay" class="finish-time"></div>
+
+<div id="barContainer">
+  <div id="writingBar"></div>
+  <div id="readingBar"></div>
+</div>
+
+<div class="controls">
+
+  <button onclick="setSession(15, 90)">15 + 90</button>
+  <button onclick="setSession(5, 50)">5 + 50</button>
+  <button onclick="setSession(15, 120)">15 + 120</button>
+
+  <br><br>
+
+  Reading:
+  <input type="number" id="readIn" value="15" min="0">
+
+  Writing:
+  <input type="number" id="writeIn" value="90" min="0">
+
+  <button onclick="applyCustom()">Set Custom</button>
+
+  <br><br>
+
+  <button id="mainBtn" class="play" onclick="handlePrimaryAction()">▶ START</button>
+
+  <button class="stop" onclick="resetToStart()">RESET</button>
+
+  <div id="awakeStatus">● SCREEN AWAKE MODE: STANDBY</div>
+
+</div>
+
 <script>
-const BANK={
-indices:[
-{q:"Simplify fully: x⁵ × x³.",a:["x^8","x⁸"],hint:"When multiplying powers with the same base, add the indices.",sol:"x⁵ × x³ = x⁽⁵⁺³⁾ = x⁸."},
-{q:"Simplify: (a⁴)³.",a:["a^12","a¹²"],hint:"A power raised to a power: multiply the indices.",sol:"(a⁴)³ = a⁽⁴×³⁾ = a¹²."},
-{q:"Write with positive indices: 3m⁻²n⁴.",a:["3n^4/m^2","3n⁴/m²","3*n^4/m^2"],hint:"A factor with a negative index moves across the fraction bar.",sol:"m⁻² = 1/m², so the expression is 3n⁴/m²."},
-{q:"Simplify: (2x³y⁻²)².",a:["4x^6/y^4","4x⁶/y⁴"],hint:"Square every factor inside the brackets.",sol:"2² × x⁶ × y⁻⁴ = 4x⁶/y⁴."},
-{q:"Evaluate: 32^(3/5).",a:["8"],hint:"32^(1/5) = 2; then cube it.",sol:"32^(3/5) = (⁵√32)³ = 2³ = 8."}
-],
-exponential:[
-{q:"For y = 2ˣ, what is the horizontal asymptote?",a:["y=0","0","y = 0"],hint:"As x becomes very negative, 2ˣ approaches zero but never reaches it.",sol:"The horizontal asymptote is y = 0."},
-{q:"For y = 2ˣ − 3, find the y-intercept.",a:["-2","-2.0","(0,-2)"],hint:"Set x = 0.",sol:"y = 2⁰ − 3 = 1 − 3 = −2, so the intercept is (0, −2)."},
-{q:"Describe the transformations from y = 2ˣ to y = 2⁽ˣ⁻²⁾ + 3.",a:["right 2 up 3","2 right, 3 up","translate right 2 and up 3"],hint:"The change inside the exponent affects horizontal movement; the outside +3 affects vertical movement.",sol:"Translate 2 units right and 3 units up. The asymptote moves from y = 0 to y = 3."},
-{q:"State the range of y = −2(3ˣ) + 4.",a:["y<4","(-infinity,4)","(-∞,4)","y is less than 4"],hint:"3ˣ is positive. Multiplying by −2 makes it negative; adding 4 shifts it up.",sol:"Since 3ˣ > 0, y = 4 − 2·3ˣ is always less than 4. Range: y < 4."}
-],
-"exp-eq":[
-{q:"Solve: 3^(2x−1) = 27.",a:["2","x=2"],hint:"Write 27 as a power of 3.",sol:"27 = 3³, so 2x − 1 = 3. Hence x = 2."},
-{q:"Solve: 5ˣ = 1/125.",a:["-3","x=-3"],hint:"125 = 5³ and 1/125 = 5⁻³.",sol:"5ˣ = 5⁻³, so x = −3."},
-{q:"Solve 2ˣ = 7. Give an exact answer.",a:["ln(7)/ln(2)","log_2(7)","log₂(7)","ln 7 / ln 2"],hint:"Take natural logarithms of both sides.",sol:"x ln 2 = ln 7, so x = ln 7 / ln 2 = log₂7."},
-{q:"Solve: e^(2x) − 3eˣ − 4 = 0.",a:["ln(4)","x=ln4","ln 4"],hint:"Let u = eˣ. Then solve a quadratic in u, remembering eˣ > 0.",sol:"Let u = eˣ: u² − 3u − 4 = 0 = (u − 4)(u + 1). Since u > 0, u = 4. Therefore x = ln 4."}
-],
-logs:[
-{q:"Evaluate: log₂(64).",a:["6"],hint:"Ask: 2 to what power equals 64?",sol:"2⁶ = 64, so log₂64 = 6."},
-{q:"Evaluate: log₅(1/25).",a:["-2"],hint:"Write 1/25 as a power of 5.",sol:"1/25 = 5⁻², so the logarithm is −2."},
-{q:"Expand: log₃(9x²/y). Assume x > 0 and y > 0.",a:["2+2log_3(x)-log_3(y)","2 + 2log₃x − log₃y","2+2log3x-log3y"],hint:"Use quotient, product and power laws.",sol:"log₃9 + log₃x² − log₃y = 2 + 2log₃x − log₃y."},
-{q:"Express log₇(13) using natural logarithms.",a:["ln(13)/ln(7)","ln13/ln7","ln 13 / ln 7"],hint:"Use the change-of-base formula.",sol:"log₇13 = ln 13 / ln 7."},
-{q:"Solve: log₂(x − 3) = 4.",a:["19","x=19"],hint:"Convert to exponential form, and check x − 3 > 0.",sol:"x − 3 = 2⁴ = 16, so x = 19, which satisfies x > 3."}
-],
-"log-graphs":[
-{q:"State the domain of y = log₂(x).",a:["x>0","(0,infinity)","(0,∞)","positive x"],hint:"The argument of a logarithm must be positive.",sol:"Domain: x > 0. The vertical asymptote is x = 0."},
-{q:"For y = log₂(x), give the x-intercept.",a:["(1,0)","x=1","1"],hint:"At an x-intercept, y = 0.",sol:"0 = log₂x means x = 2⁰ = 1. The intercept is (1, 0)."},
-{q:"For y = log₅(x − 1) + 2, state the vertical asymptote.",a:["x=1","x = 1"],hint:"The logarithm's argument approaches zero at the vertical asymptote.",sol:"x − 1 = 0, so the vertical asymptote is x = 1."},
-{q:"Describe the transformations from y = log₂x to y = log₂(x + 3) − 2.",a:["left 3 down 2","3 left and 2 down","translate left 3 and down 2"],hint:"Inside +3 moves the graph left; outside −2 moves it down.",sol:"Translate 3 units left and 2 units down. The vertical asymptote moves to x = −3."}
-],
-applications:[
-{q:"A population starts at 2,400 and grows by 4% each year. Write a model P(t).",a:["2400(1.04)^t","2400*1.04^t","P=2400(1.04)^t"],hint:"Growth factor = 1 + rate as a decimal.",sol:"P(t) = 2400(1.04)^t, where t is measured in years."},
-{q:"A machine worth $18,000 depreciates by 15% each year. Write V(t).",a:["18000(0.85)^t","18000*0.85^t","V=18000(0.85)^t"],hint:"Remaining fraction each year = 1 − 0.15.",sol:"V(t) = 18000(0.85)^t."},
-{q:"For P(t) = 2400(1.04)^t, find P(6) to the nearest whole number.",a:["3036","3035","3037"],hint:"Substitute t = 6, then round to the nearest integer.",sol:"P(6) = 2400(1.04)⁶ ≈ 3035.99, so about 3,036."},
-{q:"For P(t) = 2400(1.04)^t, write an exact expression for the doubling time t.",a:["ln(2)/ln(1.04)","ln2/ln1.04","log(2)/log(1.04)"],hint:"Set P(t) = 4800 and divide by 2400.",sol:"2 = 1.04ᵗ, so t = ln 2 / ln 1.04 ≈ 17.67 years."}
-],
-mixed:[
-{q:"Explain the error: log₂(x + 1) = log₂x + log₂1.",a:["log law only applies to products not sums","logs do not split over addition","cannot split a sum"],hint:"The product law is logₐ(MN) = logₐM + logₐN. There is no equivalent sum law.",sol:"Logarithms do not split over addition. log₂(x + 1) cannot be rewritten as log₂x + log₂1."},
-{q:"Solve: log₃x + log₃(x − 8) = 2. Give the valid solution.",a:["9","x=9"],hint:"First require x > 8. Combine the logarithms, then solve the quadratic.",sol:"Domain requires x > 8. log₃[x(x − 8)] = 2, so x² − 8x = 9, giving x = 9 or −1. Only x = 9 is valid."},
-{q:"Find the inverse of f(x) = 3·2ˣ − 1.",a:["log_2((x+1)/3)","log₂((x+1)/3)","ln((x+1)/3)/ln2"],hint:"Write y = 3·2ˣ − 1, swap x and y, then isolate y.",sol:"Swap x and y: x = 3·2ʸ − 1. Then (x + 1)/3 = 2ʸ, so f⁻¹(x) = log₂((x + 1)/3)."}
-]};
-const TOPICS={indices:"INDEX LAWS",exponential:"EXPONENTIAL GRAPHS","exp-eq":"EXPONENTIAL EQUATIONS",logs:"LOG LAWS","log-graphs":"LOGARITHMIC GRAPHS",applications:"APPLICATIONS",mixed:"MIXED REVISION"};
-let topic="indices",current=null,answered=0,correct=0,seen=new Set(),lastIndex=-1;
-const $=id=>document.getElementById(id);
-function norm(s){return String(s||"").toLowerCase().replace(/[−–]/g,"-").replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g,c=>({"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9"}[c])).replace(/\s/g,"").replace(/[{}]/g,"").replace(/×/g,"*").replace(/·/g,"*").replace(/\\/g,"/").replace(/²/g,"^2");}
-function pick(){const arr=BANK[topic];let i=Math.floor(Math.random()*arr.length);if(arr.length>1&&i===lastIndex)i=(i+1)%arr.length;lastIndex=i;current=arr[i];$("questionText").textContent=current.q;$("answer").value="";$("feedback").className="feedback";$("feedback").textContent="";$("hint").className="feedback info";$("hint").textContent="";$("solutionDetails").open=false;$("solution").textContent=current.sol;$("topicPill").textContent=TOPICS[topic];$("questionMeta").textContent="Short answer · show all working · "+(arr.length)+" questions in this topic";$("answer").focus();}
-function setTopic(t){topic=t;document.querySelectorAll(".topic").forEach(b=>b.classList.toggle("active",b.dataset.topic===t));lastIndex=-1;pick();}
-function check(){if(!current)return;const value=$("answer").value.trim();if(!value){showFeedback("Type an answer first, then check it.","bad");return;}answered++;const n=norm(value);let ok=current.a.some(a=>norm(a)===n);if(!ok){ // tolerate simple equivalent unicode formatting / x= prefix
- const strip=s=>norm(s).replace(/^x=/,"").replace(/^y=/,"").replace(/^\(|\)$/g,"");
- ok=current.a.some(a=>strip(a)===strip(value));
+
+let rSec = 0;
+let wSec = 0;
+let phase = 'reading';
+let timerLeft = 0;
+let interval = null;
+let alarming = false;
+
+let wakeLock = null;
+
+const mainBtn = document.getElementById('mainBtn');
+const mainTimer = document.getElementById('mainTimer');
+const phaseLabel = document.getElementById('phaseLabel');
+const rBar = document.getElementById('readingBar');
+const wBar = document.getElementById('writingBar');
+const awakeStatus = document.getElementById('awakeStatus');
+
+
+// SCREEN WAKE LOCK
+
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator && !wakeLock) {
+
+      wakeLock = await navigator.wakeLock.request('screen');
+
+      awakeStatus.textContent = '● SCREEN AWAKE MODE: ACTIVE';
+      awakeStatus.style.color = '#2ecc71';
+
+      wakeLock.addEventListener('release', () => {
+        wakeLock = null;
+
+        if (interval && !alarming) {
+          awakeStatus.textContent = '● SCREEN AWAKE MODE: RECONNECTING';
+        } else {
+          awakeStatus.textContent = '● SCREEN AWAKE MODE: STANDBY';
+        }
+      });
+
+    }
+  } catch (err) {
+    console.log('Wake Lock unavailable:', err);
+
+    awakeStatus.textContent = '● SCREEN AWAKE MODE: UNAVAILABLE';
+    awakeStatus.style.color = '#e74c3c';
+  }
 }
-if(ok){correct++;showFeedback("Correct — nice work. Open the solution to review the method.","good");}
-else showFeedback("Not quite yet. Check your working, domain restrictions and algebra, then try again. You can reveal the solution below.","bad");
-updateProgress();}
-function showFeedback(msg,kind){$("feedback").textContent=msg;$("feedback").className="feedback show "+kind;}
-function updateProgress(){$("progressText").textContent=answered+" checked · "+correct+" correct";$("progressBar").style.width=(answered?Math.min(100,correct/answered*100):0)+"%";}
-document.querySelectorAll(".topic").forEach(b=>b.addEventListener("click",()=>setTopic(b.dataset.topic)));
-$("newQuestion").addEventListener("click",pick);$("checkAnswer").addEventListener("click",check);$("answer").addEventListener("keydown",e=>{if(e.key==="Enter")check()});
-$("showHint").addEventListener("click",()=>{$("hint").textContent=current.hint;$("hint").className="feedback info show";});
-$("resetProgress").addEventListener("click",()=>{answered=0;correct=0;updateProgress();$("working").value="";$("apiKey").value="";pick();});
-$("clearWorking").addEventListener("click",()=>{$("working").value="";$("workStatus").textContent="Cleared";});
-$("copyWorking").addEventListener("click",async()=>{try{await navigator.clipboard.writeText($("working").value);$("workStatus").textContent="Copied";}catch(e){$("working").select();$("workStatus").textContent="Select and copy manually";}});
-const cv=$("graph"),ctx=cv.getContext("2d");
-function f(x,kind){switch(kind){case"2^x":return Math.pow(2,x);case"0.5^x":return Math.pow(.5,x);case"2^x-2":return Math.pow(2,x)-2;case"2^(x-1)+1":return Math.pow(2,x-1)+1;case"log2":return x>0?Math.log2(x):NaN;case"log2shift":return x>1?Math.log2(x-1)-1:NaN;case"ln":return x>0?Math.log(x):NaN;case"2-expneg":return 2-Math.exp(-x);}}
-function drawGraph(){const W=cv.width,H=cv.height,xmin=Number($("xmin").value),xmax=Number($("xmax").value),yr=Math.max(2,Math.abs(Number($("ymax").value)||8)),kind=$("functionSelect").value;if(!(xmax>xmin)){ $("graphNotes").textContent="x maximum must be greater than x minimum.";return;}
-const px=x=>((x-xmin)/(xmax-xmin))*W,py=y=>H-((y+yr)/(2*yr))*H;
-ctx.clearRect(0,0,W,H);ctx.fillStyle="#fff";ctx.fillRect(0,0,W,H);
-ctx.strokeStyle="#e4eaf2";ctx.lineWidth=1;
-for(let x=Math.ceil(xmin);x<=xmax;x++){let xx=px(x);ctx.beginPath();ctx.moveTo(xx,0);ctx.lineTo(xx,H);ctx.stroke();}
-for(let y=-Math.floor(yr);y<=Math.floor(yr);y++){let yy=py(y);ctx.beginPath();ctx.moveTo(0,yy);ctx.lineTo(W,yy);ctx.stroke();}
-ctx.strokeStyle="#344054";ctx.lineWidth=2;
-if(xmin<=0&&xmax>=0){ctx.beginPath();ctx.moveTo(px(0),0);ctx.lineTo(px(0),H);ctx.stroke();}
-if(-yr<=0&&yr>=0){ctx.beginPath();ctx.moveTo(0,py(0));ctx.lineTo(W,py(0));ctx.stroke();}
-ctx.fillStyle="#344054";ctx.font="14px system-ui";ctx.fillText("x",W-20,Math.max(16,py(0)-9));ctx.fillText("y",Math.min(W-20,px(0)+8),16);ctx.fillText("0",Math.min(W-25,Math.max(3,px(0)+5)),Math.max(14,Math.min(H-5,py(0)-5)));
-for(let x=Math.ceil(xmin);x<=xmax;x++){if(x===0)continue;ctx.fillText(String(x),px(x)-4,Math.min(H-3,Math.max(12,py(0)+17)));}
-for(let y=-Math.floor(yr);y<=Math.floor(yr);y++){if(y===0)continue;ctx.fillText(String(y),Math.min(W-25,Math.max(2,px(0)+7)),py(y)+4);}
-ctx.strokeStyle="#3157c8";ctx.lineWidth=3;ctx.beginPath();let pen=false;
-for(let i=0;i<=W;i++){let x=xmin+(xmax-xmin)*i/W,y=f(x,kind);if(!Number.isFinite(y)||Math.abs(y)>yr*3){pen=false;continue;}let yy=py(y);if(yy<-20||yy>H+20){pen=false;continue;}if(!pen){ctx.moveTo(i,yy);pen=true;}else ctx.lineTo(i,yy);}ctx.stroke();
-let note={ "2^x":"Domain: ℝ · Range: y > 0 · Horizontal asymptote: y = 0","0.5^x":"Domain: ℝ · Range: y > 0 · Decreasing · Horizontal asymptote: y = 0","2^x-2":"Domain: ℝ · Range: y > −2 · Horizontal asymptote: y = −2","2^(x-1)+1":"Domain: ℝ · Range: y > 1 · Horizontal asymptote: y = 1","log2":"Domain: x > 0 · Range: ℝ · Vertical asymptote: x = 0 · x-intercept (1,0)","log2shift":"Domain: x > 1 · Range: ℝ · Vertical asymptote: x = 1","ln":"Domain: x > 0 · Range: ℝ · Vertical asymptote: x = 0 · x-intercept (1,0)","2-expneg":"Domain: ℝ · Range: y < 2 · Horizontal asymptote: y = 2 · y-intercept (0,1)"}[kind];$("graphNotes").textContent=note;}
-$("plotGraph").addEventListener("click",drawGraph);$("functionSelect").addEventListener("change",drawGraph);$("downloadGraph").addEventListener("click",()=>{const a=document.createElement("a");a.download="cartesian-graph.png";a.href=cv.toDataURL("image/png");a.click();});
-$("askAI").addEventListener("click",async()=>{const key=$("apiKey").value.trim(),model=$("model").value.trim(),mode=$("aiMode").value;if(!key){$("aiOutput").textContent="Enter your OpenRouter API key above to use the optional AI tutor.";return;}if(!current){$("aiOutput").textContent="Choose a question first.";return;}const working=$("working").value.trim();const prompts={hint:"Give one helpful hint only. Do not give the final answer.",explain:"Explain the method step by step at a Year 11 Maths Methods level, with clear algebra.",check:"Check the student's working. Identify the first error if there is one, explain why, and guide them to correct it without being harsh.",practice:"Create one similar practice question on the same skill, but do not provide its answer yet."};$("aiOutput").textContent="Thinking…";
-try{const res=await fetch("https://openrouter.ai/api/v1/chat/completions",{method:"POST",headers:{"Authorization":"Bearer "+key,"Content-Type":"application/json"},body:JSON.stringify({model,temperature:.3,max_tokens:700,messages:[{role:"system",content:"You are a supportive Year 11 Maths Methods tutor. Use accurate notation, explain restrictions for logarithms, and encourage the student to show working. "+prompts[mode]},{role:"user",content:"Question: "+current.q+"\nExpected solution for your reference: "+current.sol+"\nStudent working: "+(working||"(not provided)")+"\nStudent answer: "+$("answer").value}]})});const data=await res.json();if(!res.ok)throw new Error(data.error?.message||("HTTP "+res.status));$("aiOutput").textContent=data.choices?.[0]?.message?.content||"No response returned.";}catch(e){$("aiOutput").textContent="Request failed: "+e.message+"\nCheck the key, model ID, account balance/limits and browser console.";}});
-$("clearAI").addEventListener("click",()=>{$("aiOutput").textContent="AI response cleared.";$("apiKey").value="";});
-pick();drawGraph();
+
+async function releaseWakeLock() {
+  if (wakeLock) {
+    const lock = wakeLock;
+    wakeLock = null;
+    await lock.release();
+  }
+
+  awakeStatus.textContent = '● SCREEN AWAKE MODE: STANDBY';
+  awakeStatus.style.color = '#888';
+}
+
+
+// RECONNECT WAKE LOCK WHEN RETURNING TO TAB
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && interval && !alarming) {
+    requestWakeLock();
+  }
+});
+
+
+// CLOCK AND FINISH TIME
+
+function updateFinish() {
+  const el = document.getElementById('finishDisplay');
+
+  if (alarming || (rSec === 0 && wSec === 0)) {
+    el.textContent = '';
+    return;
+  }
+
+  const remaining = timerLeft + (phase === 'reading' ? wSec : 0);
+
+  const end = new Date(Date.now() + remaining * 1000);
+
+  const t = end.toLocaleTimeString([], {
+    hour: 'numeric',
+    minute: '2-digit'
+  });
+
+  const label = interval ? 'Expected finish' : 'Finish if started now';
+
+  el.innerHTML = `${label}: <strong>${t}</strong>`;
+}
+
+function updateClock() {
+  document.getElementById('clockDisplay').textContent =
+    new Date().toLocaleTimeString();
+
+  updateFinish();
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+
+// TIME FORMATTING
+
+function format(s) {
+  let m = Math.floor(s / 60);
+  let sec = s % 60;
+
+  return `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+}
+
+
+// SET SESSION
+
+function setSession(r, w) {
+
+  fullReset();
+
+  rSec = Math.max(0, Math.floor(r * 60));
+  wSec = Math.max(0, Math.floor(w * 60));
+
+  document.getElementById('readDisplay').textContent = format(rSec);
+  document.getElementById('writeDisplay').textContent = format(wSec);
+
+  if (rSec > 0) {
+    phase = 'reading';
+    timerLeft = rSec;
+  } else {
+    phase = 'writing';
+    timerLeft = wSec;
+  }
+
+  mainTimer.textContent = format(timerLeft);
+
+  refreshUI();
+  updateFinish();
+}
+
+
+// CUSTOM SESSION
+
+function applyCustom() {
+
+  const r = Math.max(0, parseFloat(document.getElementById('readIn').value) || 0);
+  const w = Math.max(0, parseFloat(document.getElementById('writeIn').value) || 0);
+
+  setSession(r, w);
+}
+
+
+// REFRESH DISPLAY
+
+function refreshUI() {
+
+  if (phase === 'reading') {
+
+    document.getElementById('readBox').classList.add('active-phase');
+    document.getElementById('writeBox').classList.remove('active-phase');
+
+    phaseLabel.textContent = 'Reading Time';
+
+    rBar.style.display = 'block';
+
+  } else {
+
+    document.getElementById('writeBox').classList.add('active-phase');
+    document.getElementById('readBox').classList.remove('active-phase');
+
+    phaseLabel.textContent = 'Writing Time';
+
+    rBar.style.display = 'none';
+
+  }
+}
+
+
+// MAIN BUTTON
+
+function handlePrimaryAction() {
+
+  if (alarming) {
+    stopAlarm();
+    return;
+  }
+
+  if (!interval) {
+
+    if (timerLeft <= 0 && wSec <= 0) return;
+
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    }
+
+    start();
+
+  } else {
+
+    pause();
+
+  }
+}
+
+
+// START TIMER
+
+function start() {
+
+  requestWakeLock();
+
+  mainBtn.textContent = '⏸ PAUSE';
+  mainBtn.className = 'pause';
+
+  interval = setInterval(tick, 1000);
+
+  updateFinish();
+}
+
+
+// PAUSE TIMER
+
+function pause() {
+
+  clearInterval(interval);
+  interval = null;
+
+  releaseWakeLock();
+
+  mainBtn.textContent = '▶ RESUME';
+  mainBtn.className = 'play';
+
+  updateFinish();
+}
+
+
+// TIMER COUNTDOWN
+
+function tick() {
+
+  if (timerLeft > 0) {
+
+    timerLeft--;
+
+    mainTimer.textContent = format(timerLeft);
+
+    if (phase === 'reading') {
+
+      rBar.style.width = (rSec > 0 ? timerLeft / rSec * 100 : 0) + '%';
+      wBar.style.width = '100%';
+
+    } else {
+
+      wBar.style.width = (wSec > 0 ? timerLeft / wSec * 100 : 0) + '%';
+
+    }
+
+    if ([300, 120, 60].includes(timerLeft)) {
+
+      document.body.classList.add('flash');
+
+      setTimeout(() => {
+        document.body.classList.remove('flash');
+      }, 1000);
+
+    }
+
+  } else {
+
+    if (phase === 'reading' && wSec > 0) {
+
+      phase = 'writing';
+      timerLeft = wSec;
+
+      refreshUI();
+
+      mainTimer.textContent = format(timerLeft);
+
+      document.body.classList.add('flash');
+
+      setTimeout(() => {
+        document.body.classList.remove('flash');
+      }, 800);
+
+    } else {
+
+      finish();
+
+    }
+
+  }
+
+  updateFinish();
+}
+
+
+// FINISH
+
+function finish() {
+
+  clearInterval(interval);
+  interval = null;
+
+  releaseWakeLock();
+
+  alarming = true;
+
+  document.body.classList.add('flash');
+
+  mainBtn.textContent = '🛑 STOP ALARM';
+  mainBtn.className = 'alarm-btn';
+
+  phaseLabel.textContent = 'Time Up';
+
+  mainTimer.textContent = '00:00';
+
+  updateFinish();
+}
+
+
+// STOP ALARM
+
+function stopAlarm() {
+
+  alarming = false;
+
+  document.body.classList.remove('flash');
+
+  resetToStart();
+}
+
+
+// RESET TO ORIGINAL SESSION
+
+function resetToStart() {
+
+  setSession(rSec / 60, wSec / 60);
+
+}
+
+
+// FULL RESET
+
+function fullReset() {
+
+  clearInterval(interval);
+  interval = null;
+
+  releaseWakeLock();
+
+  alarming = false;
+
+  document.body.classList.remove('flash');
+
+  mainBtn.textContent = '▶ START';
+  mainBtn.className = 'play';
+
+  rBar.style.width = '100%';
+  wBar.style.width = '100%';
+
+  refreshUI();
+}
+
+
+// INITIAL SESSION
+
+setSession(15, 90);
+
 </script>
+
 </body>
-</html>'''
-p.write_text(html, encoding="utf-8")
-print(f"Created {p} ({p.stat().st_size:,} bytes)")
+</html>
