@@ -139,4 +139,5 @@ const MODS = [
 const ORDER = MODS.flatMap(m => m.ids);
 const ORDM = MODS.map((_, i) => i);
 const IMG = {};
+COURSE.forEach(c => { c.steps = c.steps.filter(x => x[0] < 3); });
 COURSE.forEach(c => regen(c));

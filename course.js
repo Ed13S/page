@@ -10,7 +10,7 @@ const GEN = {};
 function regen(c) {
   const base = c.base.map(q => { const ans = q.o[q.a], o = sh(q.o); return { ...q, o, a: o.indexOf(ans) }; });
   const gen = (GEN[c.id] || []).map(f => f());
-  c.qs = sh([...base, ...gen]);
+  c.qs = sh([...base, ...gen]).slice(0, 4); // short quizzes: the aim is understanding, not drilling
 }
 const COURSE = [];
 
