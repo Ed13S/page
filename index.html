@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Circular Functions | Methods Revision Course</title>
+<style>
+:root{--ink:#182235;--muted:#657187;--paper:#f5f7fb;--card:#fff;--line:#e2e7f0;--blue:#315efb;--pale:#edf2ff;--green:#16834b;--red:#bd3544;--shadow:0 8px 28px #1d2b4610}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:#111c32;color:white;padding:22px max(22px,calc((100% - 1180px)/2));display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-weight:800;letter-spacing:.02em}.brand small{display:block;color:#b9c5dc;font-weight:500;font-size:12px}
+.layout{max-width:1180px;margin:24px auto;padding:0 18px;display:grid;grid-template-columns:275px minmax(0,1fr);gap:22px}
+aside,.panel,.lesson{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+aside{padding:18px;height:max-content;position:sticky;top:16px}.side-title{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:800;margin:2px 8px 12px}
+nav button{display:flex;width:100%;border:0;background:transparent;text-align:left;padding:10px 11px;border-radius:9px;gap:10px;color:#344158;cursor:pointer;font:inherit;font-size:14px}
+nav button:hover{background:#f2f5fb}nav button.active{background:var(--pale);color:#244bd0;font-weight:700}
+nav .num{width:25px;color:#7a879d;font-variant-numeric:tabular-nums}
+.progress{height:8px;background:#e9edf5;border-radius:20px;overflow:hidden;margin:10px 8px 5px}.progress span{display:block;height:100%;width:0;background:var(--blue);transition:width .25s}
+main{min-width:0}.hero{background:linear-gradient(120deg,#172541,#263d70);color:#fff;padding:30px;border-radius:18px;margin-bottom:18px}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#c4d2f5;font-weight:800}.hero h1{font-size:clamp(27px,4vw,42px);line-height:1.12;margin:8px 0 10px}.hero p{color:#dce5fa;max-width:680px;margin:0}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.pill{background:#ffffff1c;border:1px solid #ffffff30;border-radius:30px;padding:5px 11px;font-size:12px}
+.lesson{padding:clamp(20px,4vw,38px)}.lesson h2{font-size:28px;line-height:1.2;margin:5px 0 8px}.lesson h3{font-size:19px;margin:26px 0 8px}.lesson p{margin:9px 0}.sub{color:var(--muted);margin-top:0}
+.callout{border-left:4px solid var(--blue);background:#f1f5ff;padding:13px 16px;border-radius:0 10px 10px 0;margin:16px 0}
+.warn{border-left-color:#d18b21;background:#fff8e9}.formula{background:#f7f8fc;border:1px solid var(--line);border-radius:12px;padding:15px;text-align:center;font-size:20px;font-weight:700;margin:14px 0;overflow-x:auto}
+.steps{counter-reset:step;list-style:none;padding:0}.steps li{counter-increment:step;position:relative;padding:4px 0 12px 43px}.steps li:before{content:counter(step);position:absolute;left:0;top:3px;width:29px;height:29px;border-radius:50%;background:var(--pale);color:#244bd0;display:grid;place-items:center;font-weight:800}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left}th{background:#f4f6fa}
+.diagram{background:#fbfcff;border:1px solid var(--line);border-radius:12px;padding:12px;margin:16px auto;max-width:620px;text-align:center}.diagram svg{width:100%;height:auto;max-height:330px}
+.quiz{border:1px solid var(--line);border-radius:13px;padding:17px;margin:22px 0;background:#fcfdff}.quiz h3{margin:0 0 5px}.q{font-weight:650}.answers{display:grid;gap:8px;margin:13px 0}.answers button{border:1px solid #d8deea;background:#fff;border-radius:9px;padding:10px 12px;text-align:left;cursor:pointer;font:inherit}.answers button:hover{border-color:var(--blue);background:#f5f7ff}.answers button.correct{border-color:#55a879;background:#eaf8ef;color:#12663a}.answers button.wrong{border-color:#d87983;background:#fff0f1;color:#a32939}
+.feedback{min-height:25px;font-size:14px;color:var(--muted)}.feedback.good{color:var(--green);font-weight:700}.feedback.bad{color:var(--red)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.btn{border:0;border-radius:9px;background:var(--blue);color:white;padding:11px 17px;font:inherit;font-weight:700;cursor:pointer}.btn.secondary{background:#eef1f7;color:#344158}.btn:disabled{opacity:.45;cursor:not-allowed}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font-size:13px;margin-bottom:16px}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:24px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}aside{position:static}.navlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;max-height:280px;overflow:auto}.hero{padding:24px}}
+@media(max-width:520px){.navlist{grid-template-columns:1fr}.lesson{padding:19px}.hero{padding:20px}header{padding:16px 20px}}
+</style></head>
+<body>
+<header><div class="brand">METHODS / CIRCULAR FUNCTIONS<small>Year 11 revision • start from the foundations</small></div><div id="headerProgress">0% complete</div></header>
+<div class="layout">
+<aside><div class="side-title">Your course</div><div class="progress"><span id="progressBar"></span></div><div class="side-title" id="progressText">0 of 13 lessons completed</div><nav class="navlist" id="nav"></nav></aside>
+<main>
+<section class="hero"><div class="kicker">Guided revision course</div><h1>Make circular functions make sense.</h1><p>Short explanations, worked examples, diagrams and practice questions. Work through the lessons in order. You can revisit any lesson whenever you need.</p><div class="meta"><span class="pill">13 lessons</span><span class="pill">Instant feedback</span><span class="pill">Progress saved on this device</span></div></section>
+<section class="lesson" id="content"></section>
+<footer>Built around the topics and sequence in your Circular Function Booklet 2025. Progress is stored locally in this browser.</footer>
+</main></div>
+<script>
+const lessons = [
+{title:"Angles: degrees and radians",tag:"14A",intro:"An angle measures how far you turn around a circle. Degrees and radians are just two different units for measuring the same turn.",sections:[
+["Start with a full turn","A full turn is 360°. Half a turn is 180° and a quarter turn is 90°. In radians, a full turn is 2π, half a turn is π and a quarter turn is π/2."],
+["What is one radian?","One radian is the angle at the centre of a unit circle that cuts off an arc of length 1. You do not need to picture the arc every time; remember that 180° equals π radians."],
+["Convert degrees to radians","Multiply by π/180. Example: 240° × π/180 = 240π/180 = 4π/3."],
+["Convert radians to degrees","Multiply by 180/π. Example: (5π/6) × 180/π = 150°. The π cancels."],
+["Positive and negative angles","Positive angles turn anticlockwise from the positive x-axis. Negative angles turn clockwise. For example, −90° points down; 270° points to the same place."]
+],worked:"Convert −135° to radians. Multiply by π/180: −135π/180. Divide top and bottom by 45: −3π/4.",formula:"Degrees → radians: × π/180     |     Radians → degrees: × 180/π",quiz:[
+["Convert 150° to radians.",["5π/6","3π/4","2π/3","5π/4"],0,"150 × π/180 = 5π/6."],
+["Convert 3π/4 to degrees.",["120°","135°","150°","225°"],1,"3π/4 × 180/π = 135°."],
+["A negative angle turns…",["anticlockwise","clockwise","only one full turn","vertically"],1,"Negative angles turn clockwise."]
+]},
+{title:"The unit circle: sine and cosine",tag:"14B",intro:"The unit circle is a circle with radius 1 and centre (0,0). It turns trigonometry into coordinates.",sections:[
+["The coordinates","A point on the unit circle has coordinates (x,y). The horizontal coordinate is x; the vertical coordinate is y."],
+["Cosine and sine","For an angle θ, cos(θ) is the x-coordinate and sin(θ) is the y-coordinate. Remember: cosine = across; sine = up/down."],
+["The four axis points","At 0 the point is (1,0). At π/2 it is (0,1). At π it is (−1,0). At 3π/2 it is (0,−1). At 2π you return to (1,0)."],
+["The circle equation","Because the radius is 1, x² + y² = 1. This relationship becomes the Pythagorean identity later."]
+],worked:"At θ = π, the point is (−1,0). So cos(π)=−1 and sin(π)=0.",formula:"cos(θ) = x-coordinate     |     sin(θ) = y-coordinate",diagram:"unit",quiz:[
+["At θ = π/2, what are the coordinates?",["(1,0)","(0,1)","(−1,0)","(0,−1)"],1,"The top of the unit circle is (0,1)."],
+["At θ = π, what is cos(θ)?",["1","0","−1","undefined"],2,"Cosine is the x-coordinate. At the left point x = −1."],
+["At θ = 3π/2, what is sin(θ)?",["1","0","−1","undefined"],2,"Sine is the y-coordinate. At the bottom y = −1."]
+]},
+{title:"Tangent and the quadrants",tag:"14C",intro:"Tangent is built from sine and cosine. The quadrant tells you whether each value is positive or negative.",sections:[
+["Tangent","Tangent is sine divided by cosine: tan(θ)=sin(θ)/cos(θ). On the unit circle this is y/x. If cosine is zero, tangent is undefined."],
+["The four quadrants","Quadrant I: all three are positive. Quadrant II: sine is positive. Quadrant III: tangent is positive. Quadrant IV: cosine is positive."],
+["Why signs matter","For an angle in quadrant II, x is negative and y is positive. So cosine is negative, sine is positive and tangent is negative."]
+],worked:"If sin(θ)=3/5 and cos(θ)=4/5, then tan(θ)=(3/5)/(4/5)=3/4.",formula:"tan(θ) = sin(θ) ÷ cos(θ) = y/x",diagram:"quadrants",quiz:[
+["Which function is positive in quadrant II?",["cosine only","sine only","tangent only","all three"],1,"Sine is positive in quadrant II."],
+["If sin θ = 0.6 and cos θ = 0.8, tan θ is…",["0.48","4/3","0.75","1.4"],2,"0.6 ÷ 0.8 = 0.75."],
+["Tangent is undefined when…",["sine is zero","cosine is zero","sine is one","angle is negative"],1,"Tangent divides by cosine, so division by zero is undefined."]
+]},
+{title:"Symmetry and reference angles",tag:"14D",intro:"Angles in different quadrants can share the same reference angle. Their values have the same size but may have different signs.",sections:[
+["Reference angle","The reference angle is the small positive angle between the terminal arm and the x-axis. For 150°, the reference angle is 180°−150°=30°."],
+["Use symmetry","150° and 30° have the same sine because their points have the same height. Their cosine values have opposite signs because they are on opposite sides of the y-axis."],
+["Negative angles","sin(−θ)=−sin(θ); cos(−θ)=cos(θ); tan(−θ)=−tan(θ). Sine and tangent change sign; cosine stays the same."],
+["A quick sign check","Before writing an answer, identify the quadrant. This prevents a correct reference-angle value from getting the wrong sign."]
+],worked:"Find cos(150°). The reference angle is 30°. Cosine is negative in quadrant II. cos(150°)=−cos(30°)=−√3/2.",formula:"sin(−θ)=−sin θ     cos(−θ)=cos θ     tan(−θ)=−tan θ",diagram:"quadrants",quiz:[
+["The reference angle for 210° is…",["30°","60°","150°","210°"],0,"210° is in quadrant III; 210°−180°=30°."],
+["cos(−60°) equals…",["−1/2","1/2","−√3/2","√3/2"],1,"Cosine is an even function: cos(−θ)=cos θ."],
+["sin(150°) is…",["−1/2","1/2","−√3/2","√3/2"],1,"Reference angle 30°, and sine is positive in quadrant II."]
+]},
+{title:"Exact values and special triangles",tag:"14E",intro:"Exact values are answers written neatly using fractions and surds (square roots), rather than decimals.",sections:[
+["The 45° triangle","A right-angled isosceles triangle has side lengths 1, 1 and √2. Therefore sin45°=cos45°=√2/2 and tan45°=1."],
+["The 30°–60° triangle","Its side lengths are 1, √3 and 2. Therefore sin30°=1/2, cos30°=√3/2, sin60°=√3/2 and cos60°=1/2."],
+["Learn this table","These values are used repeatedly in exact-value questions and when solving equations without a calculator."]
+],worked:"Find sin(120°). The reference angle is 60°. Sine is positive in quadrant II. So sin(120°)=sin(60°)=√3/2.",formula:"30°: sin=1/2, cos=√3/2, tan=√3/3     |     45°: sin=cos=√2/2, tan=1     |     60°: sin=√3/2, cos=1/2, tan=√3",quiz:[
+["cos(60°) is…",["√3/2","1/2","√2/2","1"],1,"In the 30–60–90 triangle, cos 60° = adjacent/hypotenuse = 1/2."],
+["tan(45°) is…",["0","1/2","1","√3"],2,"The opposite and adjacent sides are equal, so tan45°=1."],
+["sin(120°) is…",["−√3/2","√3/2","1/2","−1/2"],1,"Reference angle 60°; sine is positive in quadrant II."]
+]},
+{title:"Basic sine and cosine graphs",tag:"14F",intro:"A sine or cosine graph shows how the function's value changes as the angle changes.",sections:[
+["Sine graph","y=sin(x) starts at 0, rises to 1 at π/2, returns to 0 at π, falls to −1 at 3π/2, then returns to 0 at 2π."],
+["Cosine graph","y=cos(x) starts at 1, reaches 0 at π/2, −1 at π, 0 at 3π/2 and 1 at 2π."],
+["Five key points","To sketch one cycle, mark the start, maximum, middle crossing, minimum and end. Join them with a smooth curve."],
+["Graph vocabulary","Domain is allowed x-values. Range is allowed y-values. Amplitude is the distance from the middle line to a peak. Period is the length of one complete cycle. Median is the middle horizontal line."]
+],worked:"For y=sin(x), plot (0,0), (π/2,1), (π,0), (3π/2,−1), (2π,0), then join smoothly.",formula:"For y=sin x or y=cos x: amplitude 1, period 2π, range [−1,1], median y=0.",diagram:"wave",quiz:[
+["The period of y=sin(x) is…",["π","2π","π/2","1"],1,"One complete sine cycle takes 2π."],
+["The range of y=cos(x) is…",["[0,1]","[−1,1]","all real numbers","[−2,2]"],1,"Sine and cosine values stay between −1 and 1."],
+["Where does y=cos(x) start?",["0","1","−1","undefined"],1,"At x=0, cos(0)=1."]
+]},
+{title:"Graph dilations and reflections",tag:"14F",intro:"Numbers multiplying the function change its height. Numbers multiplying x change how quickly the graph completes a cycle.",sections:[
+["Vertical stretch: A","For y=A sin(nx) or y=A cos(nx), the amplitude is |A|. If A=3, the graph is three times as tall."],
+["Reflection","If A is negative, the graph is reflected in the x-axis. For example, −2sin(x) has a minimum of −2 and maximum of 0."],
+["Horizontal change: n","The period becomes 2π/|n|. A larger n makes the wave complete more cycles in the same horizontal distance."],
+["Range","With no vertical shift, the range is [−|A|, |A|]."]
+],worked:"For y=5cos(3x), amplitude=5 and period=2π/3. One cycle runs from x=0 to x=2π/3.",formula:"Amplitude = |A|     Period = 2π/|n|     Range = [−|A|, |A|]",quiz:[
+["For y=4sin(2x), the amplitude is…",["2","4","π","8"],1,"Amplitude is the absolute value of the number in front: |4|=4."],
+["For y=3cos(6x), the period is…",["6π","3π","π/3","2π/3"],3,"Period = 2π/6 = π/3."],
+["The negative in y=−sin(x) causes…",["a shift right","a reflection in the x-axis","a vertical shift up","a longer period"],1,"A negative multiplier reflects the graph in the x-axis."]
+]},
+{title:"Solving trigonometric equations",tag:"14G",intro:"Solving a trig equation means finding every angle in the stated interval that makes the equation true.",sections:[
+["Step 1: isolate the trig function","For 2cos(x)+1=0, subtract 1 and divide by 2: cos(x)=−1/2."],
+["Step 2: find the reference angle","Use exact values or the calculator. cos(reference angle)=1/2 gives reference angle π/3."],
+["Step 3: choose the quadrants","Cosine is negative in quadrants II and III. So in [0,2π), x=2π/3 and x=4π/3."],
+["Step 4: check the interval","Only include answers inside the interval the question gives. Do not include extra turns."]
+],worked:"Solve cos(x)=−1/2 for x∈[0,2π). Reference angle π/3. Cosine is negative in QII and QIII. Answers: x=2π/3, 4π/3.",formula:"First isolate sin(x), cos(x) or tan(x). Then use reference angle + quadrant signs + stated interval.",quiz:[
+["Solve sin(x)=1/2 for x∈[0,2π).",["π/6, 5π/6","π/3, 2π/3","7π/6, 11π/6","π/6 only"],0,"Sine is positive in quadrants I and II; reference angle π/6."],
+["Solve cos(x)=−1 for x∈[0,2π).",["0","π/2","π","3π/2"],2,"Cosine is −1 at the leftmost point, x=π."],
+["For tan(x)=√3 in [0,2π), the answers are…",["π/3, 4π/3","π/3, 2π/3","2π/3, 5π/3","π/6, 7π/6"],0,"Tangent is positive in quadrants I and III; reference angle π/3."]
+]},
+{title:"Horizontal translations",tag:"14H",intro:"A horizontal translation moves the entire wave left or right without changing its height or period.",sections:[
+["Read the brackets","In y=sin(x−b), the graph moves right by b. In y=sin(x+b), it moves left by b."],
+["The sign feels backwards","The expression x−π/4 means shift right π/4. The expression x+π/4 means shift left π/4."],
+["The n factor","For y=A sin(n(x−b)), the horizontal shift is b and the period is 2π/|n|. Keep the brackets together when identifying the shift."]
+],worked:"For y=3sin(x−π/2), amplitude=3, period=2π and shift right π/2.",formula:"y=A sin(n(x−b)) + c: horizontal shift = b to the right. A plus inside means left.",quiz:[
+["y=sin(x−π/3) shifts…",["left π/3","right π/3","up π/3","down π/3"],1,"Minus inside the brackets means shift right."],
+["y=cos(x+2) shifts…",["right 2","left 2","up 2","down 2"],1,"Plus inside the brackets means shift left."],
+["A horizontal shift changes the…",["amplitude only","period only","position of the graph","range only"],2,"A translation changes position, not amplitude or period."]
+]},
+{title:"Vertical translations and full sine/cosine form",tag:"14I",intro:"Adding a number at the end moves the graph up or down. It changes the middle line, maximum and minimum.",sections:[
+["The vertical shift c","In y=A sin(n(x−b))+c, the graph moves up c if c is positive, or down if c is negative."],
+["Median line","The median is y=c. The wave oscillates equally above and below this line."],
+["Maximum and minimum","Maximum = c+|A|. Minimum = c−|A|. The range is [c−|A|, c+|A|]."],
+["Put all features together","Identify A, n, b and c separately. Then state amplitude, period, horizontal shift, median, maximum, minimum and range."]
+],worked:"For y=2cos(x)+1: amplitude 2; period 2π; median y=1; maximum 3; minimum −1; range [−1,3].",formula:"Amplitude |A|     Period 2π/|n|     Median y=c     Max c+|A|     Min c−|A|",quiz:[
+["For y=3sin(x)−2, the median is…",["y=3","y=−2","y=1","y=0"],1,"The constant at the end gives the median: y=−2."],
+["For y=2cos(x)+4, the maximum is…",["2","4","6","−6"],2,"Maximum = c+|A| = 4+2 = 6."],
+["For y=2sin(3x)−1, the period is…",["2π","π","2π/3","3π"],2,"Period = 2π/3."]
+]},
+{title:"Further symmetry and identities",tag:"14J",intro:"Identities are equations that are true for every allowed angle. They help you find missing values and simplify expressions.",sections:[
+["Pythagorean identity","sin²(θ)+cos²(θ)=1. The square applies to the value of sine or cosine."],
+["Find a missing value","If sin(θ)=0.6, then cos²(θ)=1−0.36=0.64. So cos(θ)=±0.8. The quadrant tells you which sign."],
+["Tangent identity","tan(θ)=sin(θ)/cos(θ). Use this when sine and cosine are known."],
+["Complementary relationship","sin(θ)=cos(π/2−θ) and cos(θ)=sin(π/2−θ). The two angles add to a right angle."]
+],worked:"If sin θ=0.6 and θ is in quadrant II, cos θ=−√(1−0.36)=−0.8. Then tan θ=0.6/−0.8=−0.75.",formula:"sin²θ + cos²θ = 1     |     tanθ = sinθ/cosθ",quiz:[
+["If sin θ=0.8, then cos² θ equals…",["0.2","0.36","0.64","1.8"],1,"cos²θ=1−sin²θ=1−0.64=0.36."],
+["If sin θ=0.6 and cos θ=−0.8, tan θ is…",["0.75","−0.75","1.4","−1.4"],1,"tan=sin/cos=0.6/(−0.8)=−0.75."],
+["sin(θ) equals…",["cos(π/2−θ)","cos(π−θ)","tan(θ)","1−cos(θ)"],0,"Sine and cosine are complementary at angles that add to π/2."]
+]},
+{title:"Tangent graphs",tag:"14K",intro:"Tangent graphs look different from sine and cosine. They do not have a maximum or minimum, and they contain vertical asymptotes.",sections:[
+["Basic tangent graph","y=tan(x) crosses the origin and repeats every π. Its range is all real numbers."],
+["Asymptotes","Tangent is undefined where cosine is zero. For tan(x), vertical asymptotes occur at x=π/2+kπ, where k is any integer."],
+["Period","For y=A tan(nx)+c, period=π/|n|. The graph is vertically stretched by |A| and shifted to median y=c."],
+["No amplitude","Tangent is unbounded: it rises and falls without a maximum or minimum. Therefore amplitude does not exist."]
+],worked:"For y=2tan(3x)+1, period=π/3, median y=1, range is all real numbers. Asymptotes occur where 3x=π/2+kπ.",formula:"Tangent period = π/|n|     Median = c     Range = ℝ     Amplitude: none",diagram:"tan",quiz:[
+["The period of tan(x) is…",["2π","π","π/2","1"],1,"Tangent repeats after π."],
+["The basic tan(x) graph has asymptotes at…",["x=kπ","x=π/2+kπ","x=2kπ","y=0"],1,"Tangent is undefined where cosine is zero."],
+["Amplitude of y=4tan(x) is…",["4","1","π","does not exist"],3,"Tangent is unbounded, so amplitude does not exist."]
+]},
+{title:"General solutions",tag:"14M",intro:"A general solution describes every angle that works, including angles after many complete turns.",sections:[
+["Why there are infinitely many","Sine and cosine repeat every 2π. Tangent repeats every π. So a solution repeats again and again."],
+["Sine and cosine","For sin(x)=a, there are generally two positions per cycle. Add 2nπ to the repeating solutions. For cos(x)=a, use the two symmetric positions and add 2nπ."],
+["Tangent","For tan(x)=a, solutions are π apart. One solution plus nπ gives all solutions."],
+["What does n mean?","n is any integer: …−2, −1, 0, 1, 2… This allows all positive and negative turns."],
+["Equations with 2x or 3x","First solve for the angle inside the trig function, such as θ=2x. Find all θ solutions, then divide by 2 to get x. Check the original domain if one is given."]
+],worked:"tan(x)=√3. The reference solution is π/3. Tangent repeats every π, so x=π/3+nπ, n∈ℤ.",formula:"Sine/cosine repeat every 2π. Tangent repeats every π.",quiz:[
+["The repeat period for cosine is…",["π","2π","π/2","4π"],1,"Sine and cosine repeat every 2π."],
+["The repeat period for tangent is…",["π","2π","π/2","4π"],0,"Tangent repeats every π."],
+["If tan(x)=1, a general solution is…",["x=π/4+2nπ","x=π/4+nπ","x=π/2+nπ","x=nπ"],1,"tan(π/4)=1 and tangent repeats every π."]
+]},
+{title:"Applications: tides and populations",tag:"14N",intro:"Circular functions model quantities that rise and fall in repeating cycles, such as tides and seasonal populations.",sections:[
+["Read the model","A model such as H(t)=4cos(πt/6) gives the tide height H in metres at time t hours after midnight."],
+["Amplitude and median","In H(t)=a+Acos(kt), the median is a and the amplitude is |A|. Maximum=a+|A|; minimum=a−|A|."],
+["Find the period","For sine or cosine with kt inside, period=2π/|k|. If k=π/6, period=2π÷(π/6)=12 hours."],
+["Find a time","Substitute the time into the model. For 2 pm, use t=14 if t is hours after midnight. Check calculator mode is radians if the angle uses π."],
+["Solve a threshold","If a pier is accessible when H(t)<2, first solve the boundary equation H(t)=2. Then use the graph or test intervals to decide where the height is below 2."],
+["Population models","A model P(t)=a+b sin(mt) has midline a, amplitude |b| and period 2π/|m|. Read the graph to identify the midline, peak/trough and cycle length."]
+],worked:"For H(t)=4cos(πt/6), amplitude=4, median=0 and period=12 hours. At midnight t=0, H(0)=4cos(0)=4 metres. The tide is at its maximum.",formula:"For a + A sin(kt) or a + A cos(kt): median a; amplitude |A|; period 2π/|k|.",quiz:[
+["For H(t)=7.2+2.4cos(πt/8), the median depth is…",["2.4 m","7.2 m","9.6 m","4.8 m"],1,"The constant term 7.2 is the midline."],
+["For H(t)=4cos(πt/6), the period is…",["6 hours","8 hours","12 hours","24 hours"],2,"Period=2π÷(π/6)=12 hours."],
+["If P(t)=200+50sin(πt), the maximum population is…",["50","150","200","250"],3,"Maximum=midline+amplitude=200+50=250."]
+]}
+];
+let current=0, completed=JSON.parse(localStorage.getItem("cf_done")||"[]"), scores=JSON.parse(localStorage.getItem("cf_scores")||"{}");
+const nav=document.getElementById("nav"), content=document.getElementById("content");
+function progress(){let p=Math.round(completed.length/lessons.length*100);document.getElementById("progressBar").style.width=p+"%";document.getElementById("progressText").textContent=completed.length+" of "+lessons.length+" lessons completed";document.getElementById("headerProgress").textContent=p+"% complete"}
+function renderNav(){nav.innerHTML="";lessons.forEach((l,i)=>{let b=document.createElement("button");b.className=(i===current?"active ":"")+(completed.includes(i)?"done":"");b.innerHTML=`<span class="num">${completed.includes(i)?"✓":String(i+1).padStart(2,"0")}</span><span>${l.title}</span>`;b.onclick=()=>{current=i;render()};nav.appendChild(b)})}
+function unitSvg(type){if(type==="unit"||type==="quadrants"){let labels=type==="unit"?'<text x="180" y="22">π/2</text><text x="337" y="184">0 / 2π</text><text x="180" y="352">3π/2</text><text x="14" y="184">π</text>':'<text x="250" y="65">QII: sin +</text><text x="20" y="65">QI: all +</text><text x="20" y="305">QIII: tan +</text><text x="250" y="305">QIV: cos +</text>';return `<div class="diagram"><svg viewBox="0 0 360 370" role="img" aria-label="Unit circle"><circle cx="180" cy="185" r="145" fill="none" stroke="#315efb" stroke-width="2.5"/><path d="M15 185H345 M180 15V355" stroke="#69778e" stroke-width="1.5"/><path d="M180 185L180 40" stroke="#16834b" stroke-width="3"/><circle cx="180" cy="40" r="5" fill="#16834b"/><circle cx="325" cy="185" r="5" fill="#315efb"/><circle cx="180" cy="330" r="5" fill="#315efb"/><circle cx="35" cy="185" r="5" fill="#315efb"/><text x="350" y="178">x</text><text x="188" y="18">y</text>${labels}</svg><small>Positive angles turn anticlockwise from the positive x-axis.</small></div>`}
+if(type==="wave")return `<div class="diagram"><svg viewBox="0 0 620 230"><path d="M25 115H600 M45 20V210" stroke="#7a879d"/><path d="M45 115 C85 5 125 5 165 115 S245 225 285 115 S365 5 405 115 S485 225 525 115 S565 5 605 115" fill="none" stroke="#315efb" stroke-width="3"/><path d="M45 115 C85 5 125 5 165 115 S245 225 285 115 S365 5 405 115 S485 225 525 115 S565 5 605 115" fill="none" stroke="#315efb" stroke-width="3" opacity=".15"/><text x="40" y="135">0</text><text x="165" y="135">π/2</text><text x="285" y="135">π</text><text x="405" y="135">3π/2</text><text x="590" y="135">2π</text><text x="12" y="24">y</text></svg><small>One sine cycle: start, peak, middle, trough, finish.</small></div>`;
+if(type==="tan")return `<div class="diagram"><svg viewBox="0 0 620 250"><path d="M20 125H600 M310 15V235" stroke="#7a879d"/><path d="M155 15V235 M465 15V235" stroke="#bd3544" stroke-dasharray="6 5"/><path d="M35 20 C100 30 125 70 145 125 S165 220 185 230 M335 20 C400 30 435 70 455 125 S475 220 495 230 M-120 20 C-40 30 0 70 25 125 S45 220 65 230" fill="none" stroke="#315efb" stroke-width="3"/><text x="120" y="245">−π/2</text><text x="300" y="145">0</text><text x="440" y="245">π/2</text></svg><small>Red dashed lines show vertical asymptotes.</small></div>`;
+return ""}
+function render(){let l=lessons[current];renderNav();progress();let sections=l.sections.map((s,i)=>`<h3>${i+1}. ${s[0]}</h3><p>${s[1]}</p>`).join("");let quiz=l.quiz.map((q,i)=>`<div class="quiz" data-q="${i}"><h3>Check your understanding · ${i+1}</h3><p class="q">${q[0]}</p><div class="answers">${q[1].map((a,j)=>`<button data-a="${j}">${String.fromCharCode(65+j)}. ${a}</button>`).join("")}</div><div class="feedback" aria-live="polite">Choose an answer to check it.</div></div>`).join("");
+content.innerHTML=`<div class="topline"><span>${l.tag} · LESSON ${current+1} OF ${lessons.length}</span><span>${scores[current]!==undefined?"Best quiz: "+scores[current]+"/"+l.quiz.length:"Not tested yet"}</span></div><h2>${l.title}</h2><p class="sub">${l.intro}</p>${sections}${unitSvg(l.diagram)}<div class="callout"><strong>Worked example</strong><p>${l.worked}</p></div><div class="formula">${l.formula}</div><div class="callout warn"><strong>Exam habit</strong><p>Write down the formula or rule you are using, show the substitution, and check whether the answer needs an exact value, decimal or specified interval.</p></div><h3>Practice questions</h3><p class="sub">Answer each question. If you get one wrong, read the explanation and try again.</p>${quiz}<div class="actions"><button class="btn secondary" onclick="prev()" ${current===0?"disabled":""}>← Previous lesson</button><button class="btn" onclick="finishLesson()">Mark lesson complete</button><button class="btn secondary" onclick="next()" ${current===lessons.length-1?"disabled":""}>Next lesson →</button></div>`;
+content.querySelectorAll(".quiz").forEach(box=>{let qi=+box.dataset.q,q=l.quiz[qi];box.querySelectorAll("button").forEach(btn=>btn.onclick=()=>{let chosen=+btn.dataset.a,fb=box.querySelector(".feedback");box.querySelectorAll("button").forEach(b=>b.classList.remove("correct","wrong"));if(chosen===q[2]){btn.classList.add("correct");fb.className="feedback good";fb.textContent="Correct. "+q[3];box.dataset.correct="1"}else{btn.classList.add("wrong");fb.className="feedback bad";fb.textContent="Not quite. "+q[3];box.dataset.correct="0"}let done=[...content.querySelectorAll(".quiz")].filter(x=>x.dataset.correct==="1").length;scores[current]=done;scores=Object.assign({},scores);localStorage.setItem("cf_scores",JSON.stringify(scores));})})}
+function finishLesson(){let boxes=[...content.querySelectorAll(".quiz")],correct=boxes.filter(x=>x.dataset.correct==="1").length;if(correct<boxes.length){alert(`You have ${correct} of ${boxes.length} correct. Have another go at the remaining questions, then mark the lesson complete.`);return}if(!completed.includes(current))completed.push(current);localStorage.setItem("cf_done",JSON.stringify(completed));render();alert("Lesson completed. Great work.");}
+function prev(){if(current>0){current--;render()}}function next(){if(current<lessons.length-1){current++;render()}}
+render();
+</script></body></html>
